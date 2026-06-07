@@ -22,3 +22,20 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Variáveis de ambiente — NUNCA subir
+.env
+.env.local
+.env.*.local
+functions/.env
+functions/.env.local
+
+# Firebase
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+# Functions
+functions/node_modules/
+functions/lib/
