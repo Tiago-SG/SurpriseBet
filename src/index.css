@@ -6,6 +6,61 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --wc-red:   #D93B22;
+  --wc-blue:  #2F6BF0;
+  --wc-green: #1E9B55;
+  --wc-gradient: linear-gradient(90deg, var(--wc-red) 0 33.33%, var(--wc-blue) 33.33% 66.66%, var(--wc-green) 66.66% 100%);
+}
+
+/* Faixa tricolor na borda inferior de todos os cabeçalhos */
+header {
+  position: relative;
+}
+header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0; right: 0;
+  height: 2px;
+  background: var(--wc-gradient);
+  z-index: 1;
+}
+header.border-b {
+  border-bottom-color: transparent !important;
+}
+
+/* Filete tricolor vertical em cards de partida */
+.match-card-wc {
+  position: relative;
+  overflow: hidden;
+}
+.match-card-wc::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--wc-red) 0 33.33%, var(--wc-blue) 33.33% 66.66%, var(--wc-green) 66.66% 100%);
+}
+
+/* Título de seção com acento tricolor */
+.section-title-wc {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8C95A8;
+}
+.section-title-wc::before {
+  content: '';
+  width: 28px;
+  height: 4px;
+  border-radius: 99px;
+  flex-shrink: 0;
+  background: var(--wc-gradient);
 }
 
 body {

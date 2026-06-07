@@ -71,7 +71,7 @@ export default function Matches() {
 
         {phases.map(phase => (
           <section key={phase}>
-            <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3 px-1">
+            <h2 className="section-title-wc mb-3 px-1">
               {PHASE_MAP[phase] || phase}
             </h2>
             <div className="space-y-3">

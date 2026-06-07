@@ -13,10 +13,13 @@ import AdminMatchForm from './pages/admin/AdminMatchForm.jsx'
 import AdminUsers from './pages/admin/AdminUsers.jsx'
 import AdminSync from './pages/admin/AdminSync.jsx'
 
+const TRICOLOR = 'linear-gradient(90deg,#D93B22 0 33.33%,#2F6BF0 33.33% 66.66%,#1E9B55 66.66% 100%)'
+
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="mx-auto w-full max-w-[480px] min-h-screen flex flex-col">
+      <div style={{ position: 'fixed', top: 0, left: 0, right: 0, height: '4px', background: TRICOLOR, zIndex: 9999 }} />
+      <div className="mx-auto w-full max-w-[480px] min-h-screen flex flex-col" style={{ paddingTop: '4px' }}>
         <Routes>
           <Route path="/" element={<Navigate to="/ranking" replace />} />
           <Route path="/login" element={<Login />} />

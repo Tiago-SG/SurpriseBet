@@ -41,7 +41,7 @@ export default function Ranking() {
   return (
     <div className="flex flex-col min-h-screen bg-[#0f0f1a]">
       <header className="flex items-center justify-between px-4 py-4 border-b border-white/10">
-        <h1 className="text-xl font-bold text-white">SurpriseBet</h1>
+        <h1 className="text-xl font-bold text-white">Surprise<span style={{color:'#2F6BF0'}}>Bet</span></h1>
         <div className="flex gap-2">
           <button
             onClick={() => navigate('/matches')}

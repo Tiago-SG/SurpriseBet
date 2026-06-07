@@ -27,7 +27,7 @@ export default function Login() {
     <div className="flex flex-col items-center justify-center min-h-screen px-6 bg-[#0f0f1a]">
       <div className="w-full max-w-sm space-y-6">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-white">SurpriseBet</h1>
+          <h1 className="text-3xl font-bold text-white">Surprise<span style={{color:'#2F6BF0'}}>Bet</span></h1>
           <p className="text-gray-400 mt-1">Bolão Copa do Mundo 2026</p>
         </div>
 

@@ -63,10 +63,10 @@ export default function MatchCard({ match, prediction, onSave, mode = 'view', po
     ? <span className="text-xs px-2 py-0.5 rounded-full bg-green-500/20 text-green-400">Finalizado</span>
     : locked
       ? <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400">🔒 travado</span>
-      : <span className="text-xs px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400">Aberto</span>
+      : <span className="text-xs px-2 py-0.5 rounded-full bg-green-500/20 text-green-400">Aberto</span>
 
   return (
-    <div className="bg-white/5 border border-white/10 rounded-xl p-4 space-y-3">
+    <div className="match-card-wc bg-white/5 border border-white/10 rounded-xl p-4 space-y-3">
       {/* Header: fase + data */}
       <div className="flex items-center justify-between">
         <span className="text-xs text-gray-400 uppercase tracking-wide">
