@@ -9,15 +9,20 @@ export function calculatePoints(match, prediction) {
   const realWinner = rH > rA ? 'home' : rA > rH ? 'away' : 'draw'
   const predWinner = pH > pA ? 'home' : pA > pH ? 'away' : 'draw'
 
-  if (pH === rH && pA === rA) points += 2
-
-  if (predWinner === realWinner) points += 10
-
-  if (predWinner === realWinner && realWinner !== 'draw') {
-    if ((pH - pA) === (rH - rA)) points += 13
+  if (pH === rH && pA === rA) {
+    // Placar exato: 50 pts fixos, nada mais
+    points = 50
+  } else {
+    // Vencedor ou empate
+    if (predWinner === realWinner) points += 10
+    // Diferença de gols (só se acertou vencedor e não foi empate)
+    if (predWinner === realWinner && realWinner !== 'draw') {
+      if ((pH - pA) === (rH - rA)) points += 13
+    }
+    // Gols exatos por time
+    if (pH === rH) points += 2
+    if (pA === rA) points += 2
   }
-
-  if (pH === rH && pA === rA) points += 25
 
   const phaseMultiplier = {
     'group': 1,
