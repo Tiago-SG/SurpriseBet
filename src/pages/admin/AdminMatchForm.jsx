@@ -37,8 +37,9 @@ export default function AdminMatchForm() {
         setCurrentStatus(m.status)
         if (m.scheduledAt) {
           const d = m.scheduledAt.toDate ? m.scheduledAt.toDate() : new Date(m.scheduledAt)
-          setDate(d.toISOString().slice(0, 10))
-          setTime(d.toISOString().slice(11, 16))
+          const pad = n => String(n).padStart(2, '0')
+          setDate(`${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`)
+          setTime(`${pad(d.getHours())}:${pad(d.getMinutes())}`)
         }
         setApiMatchId(m.apiMatchId || '')
         setHomeScore(m.homeScore ?? '')
@@ -87,7 +88,7 @@ export default function AdminMatchForm() {
 
       const hasResult = homeScore !== '' && awayScore !== ''
 
-      if (hasResult && currentStatus !== 'finished') {
+      if (hasResult) {
         await updateMatch(id, {
           ...baseData,
           homeScore: Number(homeScore),
@@ -98,15 +99,6 @@ export default function AdminMatchForm() {
         })
         await applyPoints(id)
         setSuccessMsg('Resultado salvo e pontos calculados!')
-      } else if (hasResult && currentStatus === 'finished') {
-        await updateMatch(id, {
-          ...baseData,
-          homeScore: Number(homeScore),
-          awayScore: Number(awayScore),
-          brazilAdvanced: brazilAdvanced === 'true' ? true
-            : brazilAdvanced === 'false' ? false : null,
-        })
-        setSuccessMsg('Dados atualizados. Pontos NÃO recalculados (já finalizado).')
       } else {
         await updateMatch(id, baseData)
         setSuccessMsg('Partida atualizada.')
@@ -127,9 +119,13 @@ export default function AdminMatchForm() {
     )
     for (const predDoc of snap.docs) {
       const prediction = predDoc.data()
-      const pts = calculatePoints(match, prediction)
-      await updateDoc(doc(db, 'predictions', predDoc.id), { points: pts })
-      await updateDoc(doc(db, 'users', prediction.userId), { totalPoints: increment(pts) })
+      const oldPts = prediction.points ?? 0
+      const newPts = calculatePoints(match, prediction)
+      const delta = newPts - oldPts
+      await updateDoc(doc(db, 'predictions', predDoc.id), { points: newPts })
+      if (delta !== 0) {
+        await updateDoc(doc(db, 'users', prediction.userId), { totalPoints: increment(delta) })
+      }
     }
   }
 
@@ -206,11 +202,6 @@ export default function AdminMatchForm() {
           <div className="border-t border-white/10 pt-4 space-y-3">
             <div className="flex items-center gap-2">
               <h2 className="text-sm font-semibold text-gray-300">Resultado</h2>
-              {currentStatus === 'finished' && (
-                <span className="text-xs px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400">
-                  Pontos já calculados
-                </span>
-              )}
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
